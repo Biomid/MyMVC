@@ -1,0 +1,15 @@
+{
+    "name": "bio/my-mvc",
+    "autoload": {
+        "psr-4": {
+            "Bio\\MyMvc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Maxim Zinchenko",
+            "email": "115734832+Biomid@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
