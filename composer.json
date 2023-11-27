@@ -2,7 +2,7 @@
     "name": "bio/my-mvc",
     "autoload": {
         "psr-4": {
-            "Bio\\MyMvc\\": "src/"
+            "Bio\\MyMvc\\": "app/"
         }
     },
     "authors": [

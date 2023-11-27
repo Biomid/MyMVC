@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Twitter-Style Blog</title>
+  <!-- Подключение стилей Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Подключение кастомных стилей для блога -->
+  <style>
+    body {
+      padding-top: 56px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .blog-post {
+      margin-bottom: 4rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .blog-post img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .navbar {
+      background-color: #1da1f2;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand, .navbar-nav .nav-link {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .navbar-toggler-icon {
+      background-color: #fff;
+    }
+
+    .btn-twitter {
+      background-color: #1da1f2;
+      color: #fff;
+      border: 1px solid #1da1f2;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-twitter:hover {
+      background-color: #0e76a8;
+      border-color: #0e76a8;
+    }
+
+    .blog-footer {
+      background-color: #f8f9fa;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    .blog-footer a {
+      color: #1da1f2;
+    }
+
+    .comments-container {
+      display: none;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    .comment {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 15px;
+    }
+
+    .comment strong {
+      font-weight: 600;
+    }
+
+    .load-more-btn {
+      margin-top: 20px;
+      background-color: #1da1f2;
+      color: #fff;
+      border: 1px solid #1da1f2;
+      transition: background-color 0.3s ease;
+    }
+
+    .load-more-btn:hover {
+      background-color: #0e76a8;
+      border-color: #0e76a8;
+    }
+
+    .like-btn {
+      background-color: transparent;
+      border: none;
+      color: #1da1f2;
+      cursor: pointer;
+    }
+
+    .like-btn:hover {
+      text-decoration: underline;
+    }
+
+
+
+  </style>
+</head>
+<body>
+<!-- Навигационная панель -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Twitter Blog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.php">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Контент блога -->
+<div class="container mt-5">
+  <!-- Пример статьи -->
+  <div class="blog-post">
+    <h2 class="blog-post-title">Sample Blog Post</h2>
+    <p class="blog-post-meta">January 1, 2023 by <a href="#">John Doe</a></p>
+
+    <img src="https://via.placeholder.com/800x400" alt="Sample Image" class="img-fluid">
+
+    <p>This is a sample blog post. You can customize this section to include your own text.</p>
+    <p>Bootstrap is a powerful front-end framework for faster and easier web development. It includes HTML,
+      CSS, and JavaScript components for navigation, forms, typography, buttons, and other interface
+      components.</p>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <button class="btn btn-twitter">Read more</button>
+      <div class="d-flex align-items-center">
+        <button class="like-btn">Like</button>
+        <button class="btn btn-link" onclick="toggleComments(this)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+               class="bi bi-chat-fill" viewBox="0 0 16 16">
+            <path
+                    d="M1 1a1 1 0 0 1 1-1h12a2 2 0 0 1 2 2v10a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1H1V1z"/>
+          </svg> <span id="commentCountSpan">3 comments</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Комментарии -->
+    <div class="mt-4 comments-container">
+      <h4>Comments</h4>
+      <!-- Комментарий 1 -->
+      <div class="comment">
+        <strong>User1:</strong>
+        <p>This is a great post!</p>
+      </div>
+      <!-- Комментарий 2 -->
+      <div class="comment">
+        <strong>User2:</strong>
+        <p>I learned a lot from this. Thanks for sharing!</p>
+      </div>
+      <!-- Комментарий 3 -->
+      <div class="comment">
+        <strong>User3:</strong>
+        <p>Awesome content! Keep it up.</p>
+      </div>
+
+      <!-- Дополнительные комментарии (скрыты по умолчанию) -->
+      <div class="comment" style="display: none;">
+        <strong>User4:</strong>
+        <p>Interesting discussion. I have a question...</p>
+      </div>
+      <div class="comment" style="display: none;">
+        <strong>User5:</strong>
+        <p>Can you elaborate on the second point? I'm curious.</p>
+      </div>
+
+      <!-- Поле для добавления комментария -->
+      <button class="btn btn-link load-more-btn" type="button" onclick="loadMoreComments()">
+        Load More Comments
+      </button>
+      <div class="mt-2">
+        <form>
+          <div class="mb-3">
+            <label for="commentName" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="commentName" required>
+          </div>
+          <div class="mb-3">
+            <label for="commentContent" class="form-label">Your Comment</label>
+            <textarea class="form-control" id="commentContent" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Comment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Другие статьи... -->
+
+</div>
+
+<!-- Подвал блога -->
+<footer class="blog-footer mt-5">
+  <p>&copy; 2023 Twitter Blog. All rights reserved.</p>
+  <a href="#">Back to top</a>
+</footer>
+
+<!-- Подключение скриптов Bootstrap (необходимо для работы некоторых компонентов) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Добавленный скрипт для динамической загрузки комментариев и переключения их видимости -->
+<script>
+  let hiddenComments = document.querySelectorAll('.comment[style="display: none;"]');
+  let loadMoreBtn = document.querySelector('.load-more-btn');
+  let commentsContainer = document.querySelector('.comments-container');
+  let totalComments = 6; // Общее количество комментариев (вам нужно будет актуализировать это число)
+
+  function loadMoreComments() {
+    hiddenComments.forEach(comment => {
+      comment.style.display = 'block';
+    });
+
+    loadMoreBtn.style.display = 'none'; // Скрываем кнопку после загрузки всех комментариев
+
+    // Обновляем текст кнопки с общим количеством комментариев
+    totalComments += hiddenComments.length; // Обновляем общее количество комментариев
+    document.getElementById('commentCountSpan').innerText = `${totalComments} comments`;
+  }
+
+  function toggleComments(button) {
+    // Проверяем текущее состояние блока комментариев
+    let commentsDisplayStyle = window.getComputedStyle(commentsContainer).getPropertyValue('display');
+
+    if (commentsDisplayStyle === 'none') {
+      commentsContainer.style.display = 'block';
+      button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                                    <path d="M1 1a1 1 0 0 1 1-1h12a2 2 0 0 1 2 2v10a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1H1V1z"/>
+                                  </svg> <span id="commentCountSpan">${totalComments} comments</span>`;
+    } else {
+      commentsContainer.style.display = 'none';
+      button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                                    <path d="M1 1a1 1 0 0 1 1-1h12a2 2 0 0 1 2 2v10a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1H1V1z"/>
+                                  </svg> <span id="commentCountSpan">${totalComments} comments</span>`;
+    }
+  }
+
+
+</script>
+
+
+</body>
+</html>
